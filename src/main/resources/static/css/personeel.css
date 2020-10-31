@@ -1,0 +1,71 @@
+/* selector : html elements */
+
+body {
+    font-family: Arial, "DejaVu Sans", Verdana;
+    margin: 0 auto;
+    width: 90%;
+    padding: 1em;
+}
+
+nav ul {
+    background-color: maroon;
+    padding: 0.4em 0;
+}
+
+nav ul li {
+    display: inline;
+    padding: 5em 1em 0em 0em;
+}
+
+nav li a {
+    color: white;
+    font-weight: bold;
+    padding-left: 0.5em;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+nav li a:hover {
+    color: #F7FFCC;
+}
+
+
+
+dl dd {
+    font-weight: bold;
+    text-indent: unset;
+    padding: 0.5em 0em;
+}
+
+
+/* selector : classes */
+
+
+.error {
+    color: red;
+}
+
+.pageNotFound {
+    background-image: url("../img/404.png");
+    background-repeat: no-repeat;
+    background-position: center top;
+    color: firebrick;
+}
+
+.techError {
+    background-image: url("../img/500.png");
+    background-repeat: no-repeat;
+    background-position: center top;
+    color: firebrick;
+}
+
+.pageNotFound a, .techError a,
+.pageNotFound a:visited, .techError a:visited,
+.pageNotFound a:hover, .techError a:hover,
+.pageNotFound a:active, .techError a:active {
+    color: #BE0002;
+    font-weight: bold;
+}
+
+
+/* selector : attribuut ID */

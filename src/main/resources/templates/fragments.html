@@ -1,0 +1,13 @@
+<head th:fragment="head(title)" xmlns:th="http://www.thymeleaf.org">
+    <link rel="icon" th:href="@{/img/personeel.ico}" type="image/x-icon">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/css/personeel.css}">
+</head>
+
+<nav  th:fragment="menu" xmlns:th="http://www.thymeleaf.org">
+    <ul>
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/hierarchy}">Werknemershi&euml;archie</a></li>
+        <li><a th:href="@{/jobTitles}">Jobtitels</a></li>
+    </ul>
+</nav>

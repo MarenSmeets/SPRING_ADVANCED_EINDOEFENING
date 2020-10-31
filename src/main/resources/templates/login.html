@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Login')"></head>
+<body>
+
+<h1>Aanmelden</h1>
+
+
+<form th:action="@{/login}" method="post">
+
+    <label>Email : <input name="username" required autofocus placeholder="Typ je emailadres"></label>
+    <label>Paswoord : <input name="password" type="password" required placeholder="Typ je paswoord"></label>
+    <button>Aanmelden</button>
+</form>
+
+<div th:if="${param.error} != null" class="error">
+    Verkeerd emailadres en/of paswoord. Probeer opnieuw.
+</div>
+
+
+</body>
+</html>
