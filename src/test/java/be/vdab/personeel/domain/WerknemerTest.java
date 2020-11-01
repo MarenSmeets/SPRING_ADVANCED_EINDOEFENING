@@ -40,25 +40,46 @@ class WerknemerTest {
         chef2.addOndergeschikte(werknemer2);
     }
 
+//    @Test
+//    void opslagByPercentage(){
+//        werknemer1.opslagByPercentage(BigDecimal.TEN);
+//        assertThat(werknemer1.getSalaris()).isEqualByComparingTo("1100");
+//    }
+//
+//    @Test
+//    void opslagByPercentageMetNullFails(){
+//        assertThatNullPointerException().isThrownBy(()->werknemer1.opslagByPercentage(null));
+//    }
+//
+//    @Test
+//    void opslagByPercentageMet0Fails(){
+//        assertThatIllegalArgumentException().isThrownBy(()->werknemer1.opslagByPercentage(BigDecimal.ZERO));
+//    }
+//
+//    @Test
+//    void opslagByPercentageMetNegatiefGetalFails(){
+//        assertThatIllegalArgumentException().isThrownBy(()->werknemer1.opslagByPercentage(BigDecimal.valueOf(-1)));
+//    }
+
     @Test
-    void opslag(){
-        werknemer1.opslag(BigDecimal.TEN);
-        assertThat(werknemer1.getSalaris()).isEqualByComparingTo("1100");
+    void opslagByNumber(){
+        werknemer1.opslagByNumber(BigDecimal.TEN);
+        assertThat(werknemer1.getSalaris()).isEqualByComparingTo("1010");
     }
 
     @Test
-    void opslagMetNullFails(){
-        assertThatNullPointerException().isThrownBy(()->werknemer1.opslag(null));
+    void opslagByNumberMetNullFails(){
+        assertThatNullPointerException().isThrownBy(()->werknemer1.opslagByNumber(null));
     }
 
     @Test
-    void opslagMet0Fails(){
-        assertThatIllegalArgumentException().isThrownBy(()->werknemer1.opslag(BigDecimal.ZERO));
+    void opslagByNumberMet0Fails(){
+        assertThatIllegalArgumentException().isThrownBy(()->werknemer1.opslagByNumber(BigDecimal.ZERO));
     }
 
     @Test
-    void opslagMetNegatiefGetalFails(){
-        assertThatIllegalArgumentException().isThrownBy(()->werknemer1.opslag(BigDecimal.valueOf(-1)));
+    void opslagByNumberMetNegatiefGetalFails(){
+        assertThatIllegalArgumentException().isThrownBy(()->werknemer1.opslagByNumber(BigDecimal.valueOf(-1)));
     }
 
     @Test

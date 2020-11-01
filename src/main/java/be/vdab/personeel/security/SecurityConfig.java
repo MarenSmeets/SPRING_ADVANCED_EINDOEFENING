@@ -20,11 +20,10 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         var impl = new JdbcDaoImpl();
         impl.setDataSource(dataSource);
 
-        impl.setUsersByUsernameQuery("select email as username, paswoord as password from werknemers where email = ?");
-        impl.setAuthoritiesByUsernameQuery("" +
-                "select werknemers.email as username, jobtitels.naam as authorities" +
-                "from werknemers inner join jobtitels" +
-                "on werknemers.jobtitelid = jobtitels.id" +
+        impl.setUsersByUsernameQuery("select email as username, paswoord as password, 1 as enabled from werknemers where email = ?");
+        impl.setAuthoritiesByUsernameQuery("select werknemers.email as username, jobtitels.naam as authorities " +
+                "from werknemers inner join jobtitels " +
+                "on werknemers.jobtitelid = jobtitels.id " +
                 "where werknemers.email = ?");
 
         return impl;

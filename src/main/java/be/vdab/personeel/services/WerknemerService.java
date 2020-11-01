@@ -4,5 +4,6 @@ import java.math.BigDecimal;
 
 public interface WerknemerService {
 
-    void opslag(long id, BigDecimal percentage);
+//    void opslagByPercentage(long id, BigDecimal percentage);
+    void opslagByNumber(long id, BigDecimal bedrag);
 }

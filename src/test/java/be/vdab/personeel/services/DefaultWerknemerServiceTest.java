@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 @DataJpaTest
 @Import(DefaultWerknemerService.class)
@@ -30,11 +31,34 @@ class DefaultWerknemerServiceTest extends AbstractTransactionalJUnit4SpringConte
         return super.jdbcTemplate.queryForObject("select id from werknemers where familienaam = 'test3'", Long.class);
     }
 
+//    @Test
+//    void opslagByPercentage() {
+//        var id = idVanTestWerknemer();
+//        service.opslagByPercentage(id, BigDecimal.TEN);
+//        manager.flush();
+//        assertThat(super.jdbcTemplate.queryForObject("select salaris from werknemers where id=?", BigDecimal.class, id)).isEqualByComparingTo("1100");
+//    }
+
     @Test
-    void opslag() {
+    void opslagByNumber() {
         var id = idVanTestWerknemer();
-        service.opslag(id, BigDecimal.TEN);
+        service.opslagByNumber(id, BigDecimal.TEN);
         manager.flush();
-        assertThat(super.jdbcTemplate.queryForObject("select salaris from werknemers where id=?", BigDecimal.class, id)).isEqualByComparingTo("1100");
+        assertThat(super.jdbcTemplate.queryForObject("select salaris from werknemers where id=?", BigDecimal.class, id)).isEqualByComparingTo("1010");
     }
+
+    @Test
+    void opslagByNumberMetNulFails() {
+        var id = idVanTestWerknemer();
+        assertThatIllegalArgumentException().isThrownBy(()->service.opslagByNumber(id, BigDecimal.ZERO));
+    }
+
+    @Test
+    void opslagByNumberMetNegatiefGetalFails() {
+        var id = idVanTestWerknemer();
+        assertThatIllegalArgumentException().isThrownBy(()->service.opslagByNumber(id, BigDecimal.valueOf(-1)));
+    }
+
+
+
 }

@@ -1,13 +1,17 @@
 <!doctype html>
-<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<html lang="nl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments::head(title='Home')"></head>
 <body>
 
+<div th:replace="fragments::log"></div>
+<nav th:replace="fragments::menu"></nav>
+<div class="content">
 <h1>Menu</h1>
 
 <ul>
-    <li><a th:href="@{/hierarchy}">Werknemershi&euml;archie</a></li>
-    <li><a th:href="@{/jobTitles}">Jobtitels</a></li>
+    <li class="withBullet" sec:authorize="isAuthenticated()"><a th:href="@{/hierarchy}">Werknemershi&euml;archie</a></li>
+    <li class="withBullet"><a th:href="@{/jobTitles}">Jobtitels</a></li>
 </ul>
+</div>
 </body>
 </html>

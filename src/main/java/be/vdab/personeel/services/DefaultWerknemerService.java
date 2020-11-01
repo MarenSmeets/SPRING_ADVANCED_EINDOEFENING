@@ -18,11 +18,21 @@ public class DefaultWerknemerService implements WerknemerService {
         this.werknemerRepository = werknemerRepository;
     }
 
+//    @Override
+//    public void opslagByPercentage(long id, BigDecimal percentage) {
+//        werknemerRepository
+//                .findById(id)
+//                .orElseThrow(()-> new WerknemerNietGevondenException("Werknemer niet gevonden"))
+//                .opslagByPercentage(percentage);
+//    }
+
     @Override
-    public void opslag(long id, BigDecimal percentage) {
+    public void opslagByNumber(long id, BigDecimal bedrag) {
         werknemerRepository
                 .findById(id)
-                .orElseThrow(()-> new WerknemerNietGevondenException("Werknemer niet gevonden"))
-                .opslag(percentage);
+                .orElseThrow(()-> new WerknemerNietGevondenException())
+                .opslagByNumber(bedrag);
     }
+
+
 }

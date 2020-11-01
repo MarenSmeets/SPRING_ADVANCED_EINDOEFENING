@@ -1,22 +1,24 @@
 <!doctype html>
-<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<html lang="nl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments::head(title='Login')"></head>
 <body>
+
+<!--<div th:replace="fragments::log"></div>-->
+<nav th:replace="fragments::menu"></nav>
+<div id="login" class="content">
 
 <h1>Aanmelden</h1>
 
 
-<form th:action="@{/login}" method="post">
+<form  th:action="@{/login}" method="post">
 
-    <label>Email : <input name="username" required autofocus placeholder="Typ je emailadres"></label>
-    <label>Paswoord : <input name="password" type="password" required placeholder="Typ je paswoord"></label>
-    <button>Aanmelden</button>
+    <input name="username" type="email" required autofocus placeholder="email"></br>
+    <input name="password" type="password" required placeholder="paswoord"></br>
+    <button>Aanmelden</button><span th:if="${param.error} != null" class="error" th:text="${param.error}">
+    V</span>
 </form>
 
-<div th:if="${param.error} != null" class="error">
-    Verkeerd emailadres en/of paswoord. Probeer opnieuw.
+
 </div>
-
-
 </body>
 </html>

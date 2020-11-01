@@ -1,7 +1,52 @@
 <!doctype html>
-<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<html lang="nl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments::head(title='Werknemershi&euml;rarchie')"></head>
 <body>
+<div th:replace="fragments::log"></div>
 <nav th:replace="fragments::menu"></nav>
+<div class="content">
+<h1 th:if="${werknemer} == null">Werknemer niet gevonden.</h1>
+
+<div th:if="${werknemer} != null" th:object="${werknemer}">
+    <h1 th:text="*{getFullName()}"></h1>
+    <ul>
+        <li class = "werknemerData">Voornaam</li>
+        <li th:text="*{voornaam}" ></li>
+        <li class = "werknemerData">Familienaam</li>
+        <li th:text="*{familienaam}"></li>
+        <li class = "werknemerData">Email adres</li>
+        <li th:text="*{email}"></li>
+
+        <span th:if="${param.opslagSucces} != null" style="font-weight: bold; color: maroon"></br>Opslag succesvol doorgevoerd </br></br></span>
+        <li class = "werknemerData"><span th:if="${param.opslagSucces}!=null">Nieuw </span>
+            Salaris</li>
+        <li th:text="*{#numbers.formatDecimal(salaris, 0, 'POINT', 2, 'COMMA')}"></li>
+        <li class = "werknemerData">Jobtitel</li>
+        <li th:text="*{jobtitel.getNaam()}"></li>
+        <li class = "werknemerData">Geboorte</li>
+        <li th:text="*{#temporals.format(geboorte, 'dd-MM-yy')}" ></li>
+
+        <li th:if="${werknemer.chef} != null"  class = "werknemerData">Chef</li>
+        <li th:if="${werknemer.chef} != null" th:object="${werknemer.chef}">
+            <a th:href="@{/hierarchy/{id}(id=*{id})}" th:text="*{getFullName()}"></a>
+        </li>
+
+        <li class = "werknemerData">Ondergeschikten</li>
+        <li th:each="ondergeschikte:${werknemer.getOndergeschikten()}" th:object="${ondergeschikte}">
+            <a th:href="@{/hierarchy/{id}(id=*{id})}" th:text="*{getFullName()}"></a>
+        </li>
+        <li class = "werknemerData">Foto</li>
+        <li>
+            <img th:src="@{/img/{id}.jpg(id=*{id})}" th:alt="*{getFullName()}">
+        </li>
+        <li class = "button">
+            <a th:href="@{/raise/{id}(id=*{id})}">Opslag</a>
+        </li>
+    </ul>
+
+</div>
+</div>
+
+
 </body>
 </html>

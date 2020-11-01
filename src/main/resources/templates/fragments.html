@@ -1,3 +1,5 @@
+
+
 <head th:fragment="head(title)" xmlns:th="http://www.thymeleaf.org">
     <link rel="icon" th:href="@{/img/personeel.ico}" type="image/x-icon">
     <title th:text="${title}"></title>
@@ -7,7 +9,22 @@
 <nav  th:fragment="menu" xmlns:th="http://www.thymeleaf.org">
     <ul>
         <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/hierarchy}">Werknemershi&euml;archie</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/hierarchy}">Werknemershi&euml;archie</a></li>
         <li><a th:href="@{/jobTitles}">Jobtitels</a></li>
+
     </ul>
 </nav>
+
+<div id="log" th:fragment="log" xmlns:th="http://www.thymeleaf.org">
+
+        <form method="post" th:action="@{/login}">
+            <button  sec:authorize="isAnonymous()"></span> Aanmelden</button>
+        </form>
+
+        <form method="post" th:action="@{/logout}">
+            <button  sec:authorize="isAuthenticated()">Afmelden</button>
+        </form>
+
+
+</div>
+

@@ -8,9 +8,8 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -47,7 +46,7 @@ public class Werknemer {
     private JobTitel jobtitel;
 
     @NotNull @PositiveOrZero
-    @NumberFormat(pattern = "0.00")
+    @NumberFormat(pattern = "#,##0.00")
     private BigDecimal salaris;
 
     @NotBlank
@@ -90,6 +89,10 @@ public class Werknemer {
         return voornaam;
     }
 
+    public String getFullName(){
+        return voornaam + " " + familienaam;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -99,7 +102,7 @@ public class Werknemer {
     }
 
     public Set<Werknemer> getOndergeschikten() {
-        return ondergeschikten;
+        return Collections.unmodifiableSet(ondergeschikten);
     }
 
     public JobTitel getJobtitel() {
@@ -134,12 +137,19 @@ public class Werknemer {
         this.paswoord = new BCryptPasswordEncoder().encode(paswoord);
     }
 
-    public void opslag(BigDecimal percentage){
-        if (percentage.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Percentage voor opslag moet groter zijn dan nul.");
+//    public void opslagByPercentage(BigDecimal percentage){
+//        if (percentage.compareTo(BigDecimal.ZERO) <= 0) {
+//            throw new IllegalArgumentException("Percentage voor opslag moet groter zijn dan nul.");
+//        }
+//        var opslagFactor = BigDecimal.ONE.add(percentage.divide(BigDecimal.valueOf(100)));
+//        salaris = salaris.multiply(opslagFactor, new MathContext(2, RoundingMode.HALF_UP));
+//    }
+
+    public void opslagByNumber(BigDecimal bedrag){
+        if (bedrag.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Bedrag voor opslag moet groter zijn dan nul.");
         }
-        var opslagFactor = BigDecimal.ONE.add(percentage.divide(BigDecimal.valueOf(100)));
-        salaris = salaris.multiply(opslagFactor, new MathContext(2, RoundingMode.HALF_UP));
+        salaris = salaris.add(bedrag);
     }
 
     public boolean addOndergeschikte(Werknemer ondergeschikte){
