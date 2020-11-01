@@ -16,15 +16,15 @@
 </nav>
 
 <div id="log" th:fragment="log" xmlns:th="http://www.thymeleaf.org">
-
         <form method="post" th:action="@{/login}">
             <button  sec:authorize="isAnonymous()"></span> Aanmelden</button>
         </form>
-
         <form method="post" th:action="@{/logout}">
             <button  sec:authorize="isAuthenticated()">Afmelden</button>
         </form>
+</div>
 
-
+<div id="copyright" th:fragment="copyright" xmlns:th="http://www.thymeleaf.org">
+    <p>Maren Smeets &copy; VDAB 2020</p>
 </div>
 

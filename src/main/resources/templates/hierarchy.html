@@ -17,7 +17,7 @@
         <li class = "werknemerData">Email adres</li>
         <li th:text="*{email}"></li>
 
-        <span th:if="${param.opslagSucces} != null" style="font-weight: bold; color: maroon"></br>Opslag succesvol doorgevoerd </br></br></span>
+        <p th:if="${param.opslagSucces} != null" class="opslagSucces"></br>Opslag succesvol doorgevoerd </br></br></p>
         <li class = "werknemerData"><span th:if="${param.opslagSucces}!=null">Nieuw </span>
             Salaris</li>
         <li th:text="*{#numbers.formatDecimal(salaris, 0, 'POINT', 2, 'COMMA')}"></li>
@@ -39,14 +39,14 @@
         <li>
             <img th:src="@{/img/{id}.jpg(id=*{id})}" th:alt="*{getFullName()}">
         </li>
-        <li class = "button">
+        <li class = "raiseButton">
             <a th:href="@{/raise/{id}(id=*{id})}">Opslag</a>
         </li>
     </ul>
 
 </div>
 </div>
-
+<div th:replace="fragments::copyright"></div>
 
 </body>
 </html>

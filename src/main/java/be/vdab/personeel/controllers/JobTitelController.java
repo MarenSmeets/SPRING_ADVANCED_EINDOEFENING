@@ -29,8 +29,14 @@ public class JobTitelController {
     @GetMapping("{id}")
     public ModelAndView findById(@PathVariable long id){
         var modelAndView = new ModelAndView("jobTitles");
-        jobTitelRepository.findById(id).ifPresent(jobTitel -> modelAndView.addObject("titel", jobTitel));
-        modelAndView.addObject(werknemerRepository.findByJobtitel_Id(id));
+        modelAndView.addObject( "titels", jobTitelRepository.findAll());
+        var titel = jobTitelRepository.findById(id);
+        if(titel.isEmpty()){
+            modelAndView.addObject("titelNietGevonden", "Jobtitel niet gevonden");
+        } else {
+            modelAndView.addObject("titelById", titel.get());
+            modelAndView.addObject("werknemersPerTitel", werknemerRepository.findByJobtitel_Id(id));
+        }
         return modelAndView;
     }
 }

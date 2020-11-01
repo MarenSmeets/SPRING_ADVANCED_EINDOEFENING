@@ -52,7 +52,7 @@ class RaiseController {
     @PostMapping
     public String opslag(long id, @Valid OpslagForm form, Errors errors, RedirectAttributes redirect){
         if(errors.hasErrors()){
-//            redirect.addAttribute("foutBoodschap", "Het bedrag moet groter zijn dan nul");
+            redirect.addAttribute("foutBoodschap", "Het bedrag moet groter zijn dan nul");
             redirect.addAttribute("id", id);
             return "redirect:/raise/{id}";
         }

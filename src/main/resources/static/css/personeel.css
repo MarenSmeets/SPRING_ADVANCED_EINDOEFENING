@@ -1,4 +1,19 @@
-/* selector : html elements */
+
+/******************************************* */
+
+input[type=number] {
+    -moz-appearance: textfield;
+    /*appearance: textfield;*/
+    margin: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/************************************************ selector : html elements */
 
 body {
     font-family: Arial, "DejaVu Sans", Verdana;
@@ -19,6 +34,8 @@ a:hover {
 
 nav ul {
     background-color: maroon;
+    border-radius: 15px;
+
     padding: 1em;
 }
 
@@ -39,88 +56,139 @@ nav li a:hover {
     color: #F7FFCC;
 }
 
-
-
-dl dd {
-    font-weight: bold;
-    text-indent: unset;
-    padding: 0.5em 0em;
-}
-
 ul li {
     text-indent: 0em;
     list-style-type: none;
     padding-bottom: 0.2em;
 }
-/* selector : classes */
 
+input, input:focus {
+    border-radius: 7px;
+    border: 1px solid maroon;
+    outline: 0;
+    padding: 0.5em;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: maroon;
+    color: white;
+    font-weight: bold;
+    padding: 0.5em;
+    border-radius: 7px;
+    border: 1px solid maroon;
+    box-sizing: border-box;
+}
+
+button:hover{
+    color: #F7FFCC;
+    text-decoration: underline;
+}
+
+/************************************************ selector : classes */
+
+
+/*** general ***/
 .content {
     padding: 1em;
+    border-radius: 15px;
     border: 1px solid maroon;
-}
-
-.button{
-    display: inline-block;
-    background-color: maroon;
-    padding: 0.5em;
-}
-
-.button a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.werknemerData {
-    font-weight: bold;
-    padding-top: 0.6em;
 }
 
 .withBullet {
     list-style-type: square;
 }
 
+/*** hierarchy ***/
+.werknemerData {
+    font-weight: bold;
+    padding-top: 0.6em;
+}
+
+.raiseButton {
+    background-color: maroon;
+    padding: 0.5em;
+    border-radius: 7px;
+    border: 1px solid maroon;
+    box-sizing: border-box;
+    width: 65px;
+}
+
+.raiseButton a {
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.raiseButton a:hover{
+    color: #F7FFCC;
+    text-decoration: underline;
+}
+
+.opslagSucces{
+    display: inline-block;
+    color: maroon;
+    font-weight: bold;
+    padding: 0 1em;
+    border: 1px solid maroon;
+    border-radius: 7px;
+}
 
 .error {
+    display: inline-block;
+    padding: 0 1em;
     color: maroon;
 }
 
 
 
+/************************************************ selector : attribuut ID */
+/*** general ***/
 
-/* selector : attribuut ID */
-
-#log {
+#log {      /* login/logout @ every page */
     width: 100%;
     text-align: right;
 }
 
-#log button {
+#copyright {
+    width: 100%;
     background-color: maroon;
     color: white;
     font-weight: bold;
-    padding: 0.5em;
-    border: none;
+    text-align: center;
+    display: inline-block;
+    margin: 1em 0;
+    border-radius: 15px;
 }
 
-/*#login{*/
-/*    text-align: center;*/
-/*}*/
-
+/*** login page ***/
 #login input {
-    padding: 0.5em;
-    border: 1px solid maroon;
     width: 300px;
-    margin: 10px 0;
-    box-sizing: border-box;
 }
 
 #login button {
-    background-color: maroon;
-    color: white;
-    font-weight: bold;
-    padding: 0.5em;
-    border: none;
-    box-sizing: border-box;
     margin: 10px 0;
 }
+
+/*** raise ***/
+#opslag button {
+    width: 65px;
+}
+
+#opslag input{
+    width: 65px;
+}
+
+/*** jobTitles ***/
+#titels ul li {
+    display: inline;
+    padding: 5em 1em 0em 0em;
+}
+
+
+
+
+
+

@@ -6,6 +6,31 @@
 <nav th:replace="fragments::menu"></nav>
 <div class="content">
 
+    <h1 th:if="${titels} == null">Geen jobtitels gevonden.</h1>
+
+    <div id="titels" th:if="${titels} != null">
+        <h1>Jobtitels</h1>
+        <ul>
+            <li th:each="titel:${titels}" th:object="${titel}">
+                <a th:href="@{/jobTitles/{id}(id=*{id})}" th:text="*{naam}"></a>
+            </li>
+        </ul>
+    </div>
+
+    <h3 th:if="${titelNietGevonden} != null" th:text="${titelNietGevonden}"></h3>
+    <div th:if="${titelById} != null">
+        <h3 th:text="${titelById.naam}"></h3>
+        <div th:if="${!werknemersPerTitel.empty} " th:object="${werknemersPerTitel}">
+            <ul >
+                <li th:each="werknemer:${werknemersPerTitel}" th:object="${werknemer}" class="withBullet">
+                    <a th:href="@{/hierarchy/{id}(id=*{id})}" th:text="*{getFullName()}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
 </div>
+<div th:replace="fragments::copyright"></div>
 </body>
 </html>
