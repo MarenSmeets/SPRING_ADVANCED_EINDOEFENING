@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/personeel.css}">
 </head>
 
+<!-- navigation bar on every page -->
+<!-- show link to hierarchy only to authenticated users -->
 <nav  th:fragment="menu" xmlns:th="http://www.thymeleaf.org">
     <ul>
         <li><a th:href="@{/}">Home</a></li>
@@ -15,6 +17,8 @@
     </ul>
 </nav>
 
+<!-- login / logout button on every page (except for login page), top right -->
+<!-- show either the log in or the log out button, depending on whether the user is authenticated or not -->
 <div id="log" th:fragment="log" xmlns:th="http://www.thymeleaf.org">
         <form method="post" th:action="@{/login}">
             <button  sec:authorize="isAnonymous()"></span> Aanmelden</button>
@@ -24,6 +28,7 @@
         </form>
 </div>
 
+<!-- copyright banner on every page -->
 <div id="copyright" th:fragment="copyright" xmlns:th="http://www.thymeleaf.org">
     <p>Maren Smeets &copy; VDAB 2020</p>
 </div>

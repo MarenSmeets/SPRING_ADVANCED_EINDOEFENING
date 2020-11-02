@@ -18,10 +18,6 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("raise")
-//@PreAuthorize("hasAnyAuthority(" +
-//        "'President', " +
-//        "'VP Marketing', " +
-//        "'VP Sales')")
 @PreAuthorize("hasAnyAuthority('President')")
 class RaiseController {
 
@@ -33,12 +29,7 @@ class RaiseController {
         this.service = service;
     }
 
-    @GetMapping("raiseForm")
-    public ModelAndView opslagForm(){
-        return new ModelAndView("raise").addObject("OpslagForm", new OpslagForm(null));
-    }
-
-
+    // show employee & OpslagForm
     @GetMapping("{id}")
     public ModelAndView werknemerById(@PathVariable long id){
         var modelAndView = new ModelAndView("raise");
@@ -47,8 +38,9 @@ class RaiseController {
         return modelAndView ;
     }
 
-
-
+    // when giving an employee a raise,
+    // either show the form again + error msg,
+    // or apply the raise and show the employee's data (page hierarchy) + "raise success" msg
     @PostMapping
     public String opslag(long id, @Valid OpslagForm form, Errors errors, RedirectAttributes redirect){
         if(errors.hasErrors()){
@@ -62,6 +54,5 @@ class RaiseController {
        redirect.addAttribute("id", id);
         return "redirect:/hierarchy/{id}" ;
     }
-
 
 }

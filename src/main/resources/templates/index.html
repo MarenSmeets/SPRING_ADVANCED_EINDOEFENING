@@ -2,17 +2,23 @@
 <html lang="nl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments::head(title='Home')"></head>
 <body>
-
+<!-- login / logout button -->
 <div th:replace="fragments::log"></div>
+
+<!-- navigation bar -->
 <nav th:replace="fragments::menu"></nav>
+
+<!-- wrapper -->
 <div class="content">
 <h1>Menu</h1>
 
 <ul>
+<!-- show link to hierarchy only to authenticated users -->
     <li class="withBullet" sec:authorize="isAuthenticated()"><a th:href="@{/hierarchy}">Werknemershi&euml;archie</a></li>
     <li class="withBullet"><a th:href="@{/jobTitles}">Jobtitels</a></li>
 </ul>
 </div>
+<!-- copyright banner -->
 <div th:replace="fragments::copyright"></div>
 </body>
 </html>

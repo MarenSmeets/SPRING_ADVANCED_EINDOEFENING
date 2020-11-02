@@ -2,12 +2,20 @@
 <html lang="nl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments::head(title='Jobtitels')"></head>
 <body>
+<!-- login / logout button -->
 <div th:replace="fragments::log"></div>
+
+<!-- navigation bar -->
 <nav th:replace="fragments::menu"></nav>
+
+<!-- wrapper -->
 <div class="content">
 
+<!-- display error msg if no job titles are found -->
     <h1 th:if="${titels} == null">Geen jobtitels gevonden.</h1>
 
+<!-- for every job title, a <li> item is created,
+holding a hyperlink <a> to show a list of employees with this title -->
     <div id="titels" th:if="${titels} != null">
         <h1>Jobtitels</h1>
         <ul>
@@ -17,10 +25,19 @@
         </ul>
     </div>
 
+<!-- display error msg if the specific job title was not found -->
     <h3 th:if="${titelNietGevonden} != null" th:text="${titelNietGevonden}"></h3>
+
+
     <div th:if="${titelById} != null">
         <h3 th:text="${titelById.naam}"></h3>
-        <div th:if="${!werknemersPerTitel.empty} " th:object="${werknemersPerTitel}">
+
+<!-- display error msg if no employees are found for this specific job title -->
+        <h5 th:if="${werknemersPerTitel.isEmpty()}">Geen werknemers gevonden voor deze jobtitel.</h5>
+
+<!-- for every employee with this specific titel, a <li> item is created,
+holding a hyperlink <a> to show the data of the specific subordinate (on page hierarchy) -->
+        <div th:if="${!werknemersPerTitel.isEmpty()} " th:object="${werknemersPerTitel}">
             <ul >
                 <li th:each="werknemer:${werknemersPerTitel}" th:object="${werknemer}" class="withBullet">
                     <a th:href="@{/hierarchy/{id}(id=*{id})}" th:text="*{getFullName()}"></a>
@@ -31,6 +48,8 @@
 
 
 </div>
+
+<!-- copyright banner -->
 <div th:replace="fragments::copyright"></div>
 </body>
 </html>

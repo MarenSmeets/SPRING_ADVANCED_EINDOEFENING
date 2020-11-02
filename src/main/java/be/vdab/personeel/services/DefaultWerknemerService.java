@@ -18,6 +18,7 @@ public class DefaultWerknemerService implements WerknemerService {
         this.werknemerRepository = werknemerRepository;
     }
 
+    // unused method for applying a raise based on percentage rather than a fixed number
 //    @Override
 //    public void opslagByPercentage(long id, BigDecimal percentage) {
 //        werknemerRepository

@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
 
@@ -21,11 +20,11 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         impl.setDataSource(dataSource);
 
         impl.setUsersByUsernameQuery("select email as username, paswoord as password, 1 as enabled from werknemers where email = ?");
-        impl.setAuthoritiesByUsernameQuery("select werknemers.email as username, jobtitels.naam as authorities " +
+        impl.setAuthoritiesByUsernameQuery(
+                "select werknemers.email as username, jobtitels.naam as authorities " +
                 "from werknemers inner join jobtitels " +
                 "on werknemers.jobtitelid = jobtitels.id " +
                 "where werknemers.email = ?");
-
         return impl;
      }
 

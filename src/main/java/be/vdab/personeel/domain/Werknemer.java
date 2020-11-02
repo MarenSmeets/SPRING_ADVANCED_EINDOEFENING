@@ -31,15 +31,18 @@ public class Werknemer {
     @NotNull @Email
     private String email;
 
+    // many employees can have the same chef
     @Valid
     @ManyToOne
     @JoinColumn(name = "chefid")
     private Werknemer chef;
 
+    // 1 chef can have zero or more subordinates
     @OneToMany(mappedBy = "chef")
     @OrderBy("familienaam, voornaam")
     private Set<@Valid Werknemer> ondergeschikten;
 
+    // many employees can have the same job title
     @NotNull @Valid
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "jobtitelid")
@@ -55,16 +58,18 @@ public class Werknemer {
     @NotNull @Past
     private LocalDate geboorte;
 
+    // custom validation annotation
     @NotNull @Rijksregister
     private Long rijksregisternr;
 
     @Version
     private long versie;
 
-
     protected Werknemer(){}
 
-    public Werknemer(String familienaam, String voornaam, String email, Werknemer chef, JobTitel jobtitel, BigDecimal salaris, String paswoord, LocalDate geboorte, Long rijksregisternr) {
+    public Werknemer(String familienaam, String voornaam, String email,
+                     Werknemer chef, JobTitel jobtitel, BigDecimal salaris,
+                     String paswoord, LocalDate geboorte, Long rijksregisternr) {
         this.familienaam = familienaam;
         this.voornaam = voornaam;
         this.email = email;
@@ -125,18 +130,22 @@ public class Werknemer {
         return versie;
     }
 
+    // an employee can get a different chef
     public void setChef(Werknemer chef) {
         this.chef = chef;
     }
 
+    // an employee can get a different title
     public void setJobtitel(JobTitel jobtitel){
         this.jobtitel = jobtitel;
     }
 
+    // paswoord setting is private method, called upon only by the constructor --> hide which encryption is being used
     private void setPaswoord(String paswoord){
         this.paswoord = new BCryptPasswordEncoder().encode(paswoord);
     }
 
+    // unused method for giving a raise by percentage rather than a fixed number
 //    public void opslagByPercentage(BigDecimal percentage){
 //        if (percentage.compareTo(BigDecimal.ZERO) <= 0) {
 //            throw new IllegalArgumentException("Percentage voor opslag moet groter zijn dan nul.");
@@ -152,10 +161,18 @@ public class Werknemer {
         salaris = salaris.add(bedrag);
     }
 
+    // since an employee can get a new chef, a chef obviously can get a new subordinate
     public boolean addOndergeschikte(Werknemer ondergeschikte){
         if(ondergeschikte == null){
             throw new IllegalArgumentException("Werknemer mag niet NULL zijn.");
         }
+        //if the subordinate's chef does not match the current employee (new chef)
+        // first check if subordinate has a chef or not (f.i. it could be a new hire, in that case chef might be null)
+            // if not (chef == null) --> set current employee as the chef : subordinate.setChef(this)
+            // if yes -->
+                // 1. get the previous chef of subordinate
+                // 2. set the current employee as the new chef of subordinate
+                // 3. remove subordinate from the collection of subordinates of previous chef
         if(!this.equals(ondergeschikte.chef)){
             if(ondergeschikte.chef == null) {
                 ondergeschikte.setChef(this);
@@ -168,6 +185,7 @@ public class Werknemer {
         return ondergeschikten.add(ondergeschikte);
     }
 
+    // an employee can not be removed form a collection of subordinates, without first being assigned to a new chef (or in case he gets fired, then subordinate.setChef(null))
     public boolean removeOndergeschikte(Werknemer ondergeschikte){
         if(this.equals(ondergeschikte.chef)){
             throw new IllegalArgumentException("Wijs werknemer eerst toe aan nieuwe chef.");
@@ -175,6 +193,7 @@ public class Werknemer {
         return ondergeschikten.remove(ondergeschikte);
     }
 
+    // equality based on national registration number, which is unique + has a custom annotation to check whether it's valid
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -186,5 +205,16 @@ public class Werknemer {
     @Override
     public int hashCode() {
         return Objects.hash(rijksregisternr);
+    }
+
+    // toString returns the full name of the employee and the national registration number in its most common format
+    @Override
+    public String toString(){
+        var rijksregFormat = new StringBuilder(String.valueOf(rijksregisternr));
+        rijksregFormat.insert(2,'.');
+        rijksregFormat.insert(5,'.');
+        rijksregFormat.insert(8,'-');
+        rijksregFormat.insert(12, '.');
+        return getFullName() + " ; " + rijksregFormat;
     }
 }

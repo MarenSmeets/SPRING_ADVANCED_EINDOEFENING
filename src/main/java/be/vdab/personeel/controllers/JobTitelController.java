@@ -21,11 +21,13 @@ public class JobTitelController {
         this.werknemerRepository = werknemerRepository;
     }
 
+    // show all the available job titles
     @GetMapping
     public ModelAndView findAll(){
         return new ModelAndView("jobTitles", "titels", jobTitelRepository.findAll());
     }
 
+    // show all the employees with a specific title
     @GetMapping("{id}")
     public ModelAndView findById(@PathVariable long id){
         var modelAndView = new ModelAndView("jobTitles");

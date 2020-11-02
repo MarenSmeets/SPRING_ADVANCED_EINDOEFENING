@@ -48,4 +48,9 @@ public class JobTitel {
     public int hashCode() {
         return Objects.hash(naam.toUpperCase());
     }
+
+    @Override
+    public String toString() {
+        return naam;
+    }
 }

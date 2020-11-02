@@ -27,6 +27,7 @@ class HierarchyController {
         this.werknemerRepository = werknemerRepository;
     }
 
+    // initially show the highest ranking employee (has no chef)
     @GetMapping
     public ModelAndView highestInHierarchy() {
         var modelAndView = new ModelAndView("hierarchy");
@@ -34,6 +35,8 @@ class HierarchyController {
         return modelAndView;
     }
 
+    // show a specific employee
+    // either from a link on page hierarchy, or from a link on page jobTitles
     @GetMapping("{id}")
     public ModelAndView werknemerById(@PathVariable long id){
         var modelAndView = new ModelAndView("hierarchy");

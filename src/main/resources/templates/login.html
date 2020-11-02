@@ -3,23 +3,24 @@
 <head th:replace="fragments::head(title='Login')"></head>
 <body>
 
-<!--<div th:replace="fragments::log"></div>-->
+<!-- navigation bar -->
 <nav th:replace="fragments::menu"></nav>
+
+<!-- wrapper -->
 <div id="login" class="content">
 
-<h1>Aanmelden</h1>
+    <h1>Aanmelden</h1>
 
-
-<form  th:action="@{/login}" method="post">
-
-    <input name="username" type="email" required autofocus placeholder="email"></br>
-    <input name="password" type="password" required placeholder="paswoord"></br>
-    <button>Aanmelden</button><span th:if="${param.error} != null" class="error" th:text="${param.error}">
-    V</span>
-</form>
-
+    <form  th:action="@{/login}" method="post">
+        <input name="username" required autofocus placeholder="email"></br>
+        <input name="password" type="password" required placeholder="paswoord"></br>
+        <button>Aanmelden</button>
+        <span th:if="${param.error} != null" th:text="#{login.error}" class="error"></span>
+    </form>
 
 </div>
+
+<!-- copyright banner -->
 <div th:replace="fragments::copyright"></div>
 </body>
 </html>
