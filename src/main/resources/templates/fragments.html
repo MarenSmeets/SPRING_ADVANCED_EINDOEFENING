@@ -20,7 +20,7 @@
 <!-- login / logout button on every page (except for login page), top right -->
 <!-- show either the log in or the log out button, depending on whether the user is authenticated or not -->
 <div id="log" th:fragment="log" xmlns:th="http://www.thymeleaf.org">
-        <form method="post" th:action="@{/login}">
+        <form method="get" th:action="@{/login}">
             <button  sec:authorize="isAnonymous()"></span> Aanmelden</button>
         </form>
         <form method="post" th:action="@{/logout}">
